@@ -158,13 +158,14 @@ const deletePost=async(req,res,next)=>{
                     const currentUser=await User.findById(req.user.id);
                     const userPostCount=currentUser.posts-1;
                     await User.findByIdAndUpdate(req.user.id,{posts:userPostCount});
+                            res.status(200).json(`Post ${postId} deleted successfully`);
+
                 }
             })
         }
         else{
             return next(new HttpError("Cannot delete post"));
         }
-        res.status(200).json(`Post ${postId} deleted successfully`);
     }
     catch(err){
         return next(new HttpError(err));

@@ -8,7 +8,7 @@ const {v4:uuid}=require("uuid");
 const registerUser=async(req,res,next)=>{
     try{
         const {name,email,password,password2}=req.body;
-        console.log(req.body);
+       
         if(!name ||!email ||!password){
             return next(new HttpError("Fill in all the fields",422));
         }
@@ -27,7 +27,7 @@ const registerUser=async(req,res,next)=>{
         
         const salt =await bcrypt.genSalt(10);
         const hashedPass=await bcrypt.hash(password,salt);
-        console.log(req.body);
+      
         const newUser=await User.create({name,email:newEmail,password:hashedPass});
         res.status(201).json(`new user ${newEmail} registered`);
     }
