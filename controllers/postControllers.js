@@ -172,4 +172,16 @@ const deletePost=async(req,res,next)=>{
     }
 }
 
-module.exports={createPost,getPosts,getPost,getCatPost,getUserPost,editPost,deletePost};
+const getThumbnail=(req,res,next)=>{
+    try{
+        const thumbnailkey=req.params.id;
+        const filepath=path.join(__dirname,"..","uploads",thumbnailkey);
+        
+        res.sendFile(filepath);
+    }
+    catch(err){
+        next(new HttpError(err));
+    }
+}
+
+module.exports={getThumbnail,createPost,getPosts,getPost,getCatPost,getUserPost,editPost,deletePost};
